@@ -1,9 +1,11 @@
 import "./App.css";
+import Panel from "./Panel.jsx";
 
 function App() {
   return (
     <div class="main">
-      <h1>Hello World</h1>
+      <Panel />
+      <Panel />
     </div>
   );
 }
