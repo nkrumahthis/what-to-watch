@@ -3,8 +3,8 @@ import "./Panel.css";
 function Panel() {
   return (
     <div class="panel">
-      <h1>Panel</h1>
       <img></img>
+      <p>Movie name</p>
       <button>Vote</button>
     </div>
   );
