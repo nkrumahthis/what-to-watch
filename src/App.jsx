@@ -14,8 +14,7 @@ function App() {
     return chosenMovie;
   }
 
-  useEffect(() => {
-    // make API call when component mounts
+  const fetch =() => {
     axios
       .get(
         `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_TOKEN}&include_adult=true&include_video=false&language=en-US&page=1&sort_by=popularity.desc`,
@@ -27,18 +26,24 @@ function App() {
       .catch((err) => {
         console.error(err.response);
       });
+  }
+
+  useEffect(() => {
+    // make API call when component mounts
+    fetch();
   }, []);
 
   function vote(side) {
     console.log("you voted", side);
+    fetch();
   }
 
   return (
     <div className="main">
       <h2>Which movie is best?</h2>
       <div className="choice-row">
-        <Panel movie={ leftMovie } onClick={() => vote("left")} />
-        <Panel movie={ rightMovie } onClick={() => vote("right")} />
+        <Panel movie={ leftMovie } voter={() => vote("left")} />
+        <Panel movie={ rightMovie } voter={() => vote("right")} />
       </div>
     </div>
   );
