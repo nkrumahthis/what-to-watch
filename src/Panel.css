@@ -6,6 +6,7 @@
     padding: 8px;
     margin: 16px;
     width: 25vw;
+    cursor: pointer;
 }
 
 .panel img {

@@ -12,7 +12,7 @@ function Panel({ movie }) {
       <img
         src={movie ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : ""}
       ></img>
-      <p>{movie ? movie.original_title : "-"}</p>
+      <h3>{ movie ? movie.original_title : "-" } </h3>
     </div>
   );
 }
