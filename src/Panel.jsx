@@ -12,8 +12,8 @@ function Panel({ movie, voter }) {
   );
 }
 
-Panel.PropTypes = {
-  movie: PropTypes.any.isRequired,
+Panel.propTypes = {
+  movie: PropTypes.any,
   voter: PropTypes.func.isRequired,
 }
 

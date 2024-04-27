@@ -18,7 +18,7 @@ function App() {
 
 	const fetch = () => {
 		axios
-			.get(`http:localhost:${import.meta.env.VITE_APIPORT}/movies`)
+			.get(`http://localhost:${import.meta.env.VITE_API_PORT}/movies`)
 			.then((res) => {
 				setLeftMovie(pickRandomMovie(res));
 				setRightMovie(pickRandomMovie(res));
