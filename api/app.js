@@ -11,7 +11,8 @@ dotenv.config();
 const app = express();
 const port = process.env.API_PORT;
 
-app.use(cors())
+app.use(cors());
+app.use(express.json());
 
 app.get('/movies', async (req, res) => {
     console.log("get movies from " + req.ip)
@@ -29,17 +30,25 @@ app.get('/movies', async (req, res) => {
 });
 
 app.post('/votes', async (req, res) => {
-    const movieVote = await MovieVotes.findOne({movie : req.params.movie})
+    console.log(req.body)
+    const movie = req.body.movie
+
+    const movieVote = await MovieVotes.findOne({id : movie.id})
+
     if(!movieVote) {
         const newMovieVote = await MovieVotes.create({
-            movie: req.params.movie,
+            id: movie.id,
+            title: movie.title,
+            poster_path: movie.poster_path,
+            overview: movie.overview,
             votes: 1
-        })
+        });
+        console.log("created new movieVote " + newMovieVote.id )
         return res.status(200).json({ movieVote: newMovieVote});
     } else {
         movieVote.votes += 1;
         await movieVote.save()
-        res.status(200).json({ movieVote: movieVote});
+        res.status(200).json({ data: movieVote});
     }
 });
 
