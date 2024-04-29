@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import axios from "axios";
 
 function App() {
+	const apiUrl = `http://localhost:${import.meta.env.VITE_API_PORT}`
 	const [leftMovie, setLeftMovie] = useState(null);
 	const [rightMovie, setRightMovie] = useState(null);
 
@@ -18,7 +19,7 @@ function App() {
 
 	const fetch = () => {
 		axios
-			.get(`http://localhost:${import.meta.env.VITE_API_PORT}/movies`)
+			.get(`${apiUrl}/movies`)
 			.then((res) => {
 				setLeftMovie(pickRandomMovie(res));
 				setRightMovie(pickRandomMovie(res));
@@ -33,8 +34,17 @@ function App() {
 		fetch();
 	}, []);
 
-	function vote(side) {
-		console.log("you voted", side);
+	function vote(movie) {
+		axios.post(`${apiUrl}/votes`, {
+			movie: {
+				id : movie.id,
+				poster_path : movie.poster_path,
+				overview: movie.overview,
+				title: movie.title
+			}
+		}).then(res => {
+			console.log(res);
+		}).catch(console.error);
 		fetch();
 	}
 
@@ -42,8 +52,8 @@ function App() {
 		<div className="main">
 			<h2>Which movie is best?</h2>
 			<div className="choice-row">
-				<Panel movie={leftMovie} voter={() => vote("left")} />
-				<Panel movie={rightMovie} voter={() => vote("right")} />
+				<Panel movie={leftMovie} voter={() => vote(leftMovie)} />
+				<Panel movie={rightMovie} voter={() => vote(rightMovie)} />
 			</div>
 		</div>
 	);
