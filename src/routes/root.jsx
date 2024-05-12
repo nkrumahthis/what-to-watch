@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 import "./root.css"
 
 function root() {
@@ -9,6 +9,8 @@ function root() {
             <span className="navLink">|</span>
             <Link className="navLink" to="/results">Results</Link>
         </div>
+
+        <Outlet />
 
     </div>
   )
