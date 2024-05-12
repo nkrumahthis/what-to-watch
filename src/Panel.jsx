@@ -8,6 +8,7 @@ function Panel({ movie, voter }) {
         src={movie ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : ""}
       ></img>
       <h3>{ movie ? movie.original_title : "-" } </h3>
+      <p>{ movie? movie.overview : "-" }</p>
     </div>
   );
 }
