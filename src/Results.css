@@ -2,8 +2,20 @@
     min-height: 50vh;
 }
 
-table, td {
+table, tr {
     width: 50vw;
     border: 1px solid white;
     border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+}
+
+th {
+    text-align: left
+}
+
+h2 {
+    text-align: center;
 }

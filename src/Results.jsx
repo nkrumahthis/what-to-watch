@@ -12,7 +12,9 @@ export default function Results() {
         .get(`${apiUrl}/votes`)
         .then((res) => {
             console.log(res.data.data);
-            setResults(res.data.data)
+
+            const ranking = res.data.data.sort((a,b) => b.votes - a.votes)
+            setResults(ranking)
         })
         .catch((err) => {
             console.error("hehe", err);
@@ -26,14 +28,8 @@ export default function Results() {
 
   return (
     <div className="page">
+        <h2>Results</h2>
         <table>
-            <thead>
-                <tr>
-                    <th>Poster</th>
-                    <th>Title</th>
-                    <th>Votes</th>
-                </tr>
-            </thead>
             <tbody>
                 {results ? results.map((result, index) => <tr key={index}>
                     <td>
