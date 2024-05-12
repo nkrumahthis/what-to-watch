@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import "./Results.css"
 
 export default function Results() {
   const apiUrl = `http://localhost:${import.meta.env.VITE_API_PORT}`
