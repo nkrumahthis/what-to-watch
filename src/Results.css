@@ -13,7 +13,8 @@ td {
 }
 
 th {
-    text-align: left
+    text-align: left;
+    padding: 10px;
 }
 
 h2 {

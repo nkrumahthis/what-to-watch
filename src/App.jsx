@@ -8,6 +8,7 @@ function App() {
 	const apiUrl = `http://localhost:${import.meta.env.VITE_API_PORT}`
 	const [leftMovie, setLeftMovie] = useState(null);
 	const [rightMovie, setRightMovie] = useState(null);
+	const [loading, setLoading] = useState(false);
 
 	const pickRandomMovie = (res) => {
 		const randomMovieIndex = Math.floor(
@@ -18,14 +19,25 @@ function App() {
 	};
 
 	const fetch = () => {
+		setLoading(true);
 		axios
 			.get(`${apiUrl}/movies`)
 			.then((res) => {
 				setLeftMovie(pickRandomMovie(res));
 				setRightMovie(pickRandomMovie(res));
+
+				if(leftMovie && rightMovie){
+					while (rightMovie.id === leftMovie.id) {
+						console.log("same movie, pick another one")
+						setRightMovie(pickRandomMovie(res));
+					}
+				}
 			})
 			.catch((err) => {
-				console.error(err.response);
+				console.error(err);
+			})
+			.finally(() => {
+				setLoading(false);
 			});
 	};
 
@@ -35,26 +47,35 @@ function App() {
 	}, []);
 
 	function vote(movie) {
-		axios.post(`${apiUrl}/votes`, {
+		axios
+		.post(`${apiUrl}/votes`, {
 			movie: {
 				id : movie.id,
 				poster_path : movie.poster_path,
 				overview: movie.overview,
 				title: movie.title
 			}
-		}).then(res => {
+		})
+		.then(res => {
 			console.log(res);
-		}).catch(console.error);
-		fetch();
+		})
+		.catch(console.error)
+		.finally(() => {
+            fetch();
+        });
 	}
 
 	return (
 		<div className="page">
 			<h2>Which movie is best?</h2>
-			<div className="choice-row">
-				<Panel movie={leftMovie} voter={() => vote(leftMovie)} />
-				<Panel movie={rightMovie} voter={() => vote(rightMovie)} />
-			</div>
+			{ (loading) ? 
+				<p>Loading...</p> 
+				:
+				<div className="choice-row">
+					<Panel movie={leftMovie} voter={() => vote(leftMovie)} />
+					<Panel movie={rightMovie} voter={() => vote(rightMovie)} />
+				</div>
+			}
 		</div>
 	);
 }
