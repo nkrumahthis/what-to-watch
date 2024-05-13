@@ -49,7 +49,7 @@ function App() {
 	}
 
 	return (
-		<div className="main">
+		<div className="page">
 			<h2>Which movie is best?</h2>
 			<div className="choice-row">
 				<Panel movie={leftMovie} voter={() => vote(leftMovie)} />
