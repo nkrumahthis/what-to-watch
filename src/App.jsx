@@ -28,7 +28,6 @@ function App() {
 
 				if(leftMovie && rightMovie){
 					while (rightMovie.id === leftMovie.id) {
-						console.log("same movie, pick another one")
 						setRightMovie(pickRandomMovie(res));
 					}
 				}

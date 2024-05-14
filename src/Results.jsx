@@ -14,13 +14,11 @@ export default function Results() {
     axios
         .get(`${apiUrl}/votes`)
         .then((res) => {
-            console.log(res.data.data);
-
             const ranking = res.data.data.sort((a,b) => b.votes - a.votes)
             setResults(ranking)
         })
         .catch((err) => {
-            console.error("hehe", err);
+            console.error(err);
         })
         .finally(() =>{
             setLoading(false);
