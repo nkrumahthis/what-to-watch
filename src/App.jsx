@@ -6,6 +6,7 @@ import axios from "axios";
 
 function App() {
 	const apiUrl = `http://localhost:${import.meta.env.VITE_API_PORT}`
+	
 	const [leftMovie, setLeftMovie] = useState(null);
 	const [rightMovie, setRightMovie] = useState(null);
 	const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ function App() {
 		return chosenMovie;
 	};
 
-	const fetch = () => {
+	const fetch = (apiUrl) => {
 		setLoading(true);
 		axios
 			.get(`${apiUrl}/movies`)
@@ -42,8 +43,8 @@ function App() {
 
 	useEffect(() => {
 		// make API call when component mounts
-		fetch();
-	}, []);
+		fetch(apiUrl);
+	}, [apiUrl]);
 
 	function vote(movie) {
 		axios
